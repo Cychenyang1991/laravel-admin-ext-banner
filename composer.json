@@ -1,5 +1,5 @@
 {
-    "name": "laravel-admin-ext/banner",
+    "name": "laravel-admin-library/banner",
     "description": "description...",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
