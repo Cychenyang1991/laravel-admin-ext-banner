@@ -1,0 +1,114 @@
+#app {
+  display: flex;
+}
+/*#app .wrapper {*/
+/*  border: 1px solid #ccc;*/
+/*}*/
+/*#app .wrapper:first-child {*/
+/*  margin-right: 20px;*/
+/*  margin-left: 100px;*/
+/*}*/
+.title {
+  padding: 8px 20px;
+  background-color: #409efe;
+  color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.content {
+  padding: 20px;
+  box-sizing: border-box;
+  max-height: 660px;
+}
+.content.scroll {
+  overflow-y: scroll;
+}
+.content .phone-modal {
+  border: 1px solid #ccc;
+  min-width: 337.5px;
+  min-height: 600.3px;
+  position: relative;
+}
+.content .phone-modal .status-bar {
+  width: 100%;
+  height: 30px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+.content .phone-modal .status-bar .status-bar-img {
+  width: 100%;
+  height: 100%;
+}
+.content .phone-modal .status-bar .time {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: 13px;
+  top: 9px;
+  transform: translateX(-50%);
+}
+.content .phone-modal .mini-icon {
+  width: 86px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 24px;
+  z-index: 9;
+}
+.content .phone-modal .swiper .img {
+  width: 100%;
+  height: 562px;
+}
+.content .config {
+  min-width: 360px;
+  font-size: 13px;
+}
+.content .config .title-wrapper {
+  display: flex;
+  margin-bottom: 16px;
+}
+.content .config .title-wrapper .left {
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 65px;
+}
+.content .config .title-wrapper .left span {
+  position: relative;
+}
+.content .config .title-wrapper .left span.required::after {
+  content: '*';
+  color: red;
+  position: absolute;
+  left: -10px;
+  top: 1px;
+}
+.content .config .config-list {
+  margin-bottom: 10px;
+}
+.content .config .config-list .title-wrapper {
+  align-items: center;
+}
+.content .config .config-list .title-wrapper:last-child {
+  margin-bottom: 0;
+}
+.content .config .config-list .list-item {
+  border: 1px solid #ccc;
+  padding: 14px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  position: relative;
+}
+.content .config .config-list .list-item:last-child {
+  margin-bottom: 0;
+}
+.content .config .config-list .list-item .delete-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.content .config .btn-group {
+  text-align: center;
+}
