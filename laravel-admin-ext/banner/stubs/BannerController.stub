@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Admin\Controllers;
+
+use App\Models\Activity\ActivityRule;
+use App\Models\Common\Store;
+use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Show;
+
+class BannerController extends AdminController
+{
+    /**
+     * Title for current resource.
+     *
+     * @var string
+     */
+    protected $title = '轮播图配置';
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    public function index(Content $content)
+    {
+        return $content
+            ->title($this->title())
+            ->description($this->description['index'] ?? trans('admin.list'))
+            ->view('admin.banner_index');
+    }
+
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        $show = new Show(Store::findOrFail($id));
+
+        $show->field('id', __('Id'));
+        $show->field('name', __('Name'));
+        $show->field('store_address', __('Store address'));
+        $show->field('lat', __('Lat'));
+        $show->field('lnt', __('Lnt'));
+        $show->field('telephone', __('Telephone'));
+        $show->field('status', __('Status'));
+        $show->field('counter_code', __('Counter code'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
+        $show->field('deleted_at', __('Deleted at'));
+        $show->field('province', __('Province'));
+        $show->field('img', __('Img'));
+
+        return $show;
+    }
+
+    /**
+     * Make a form builder.
+     *
+     * @return Form
+     */
+    protected function form()
+    {
+        $form = new Form(new Store());
+
+        $form->text('name', __('Name'));
+        $form->text('store_address', __('Store address'));
+        $form->text('lat', __('Lat'));
+        $form->text('lnt', __('Lnt'));
+        $form->text('telephone', __('Telephone'));
+
+        $states = [
+            'on'  => ['value' => ActivityRule::STATUS_OPEN, 'text' => '开启', 'color' => 'primary'],
+            'off' => ['value' => ActivityRule::STATUS_CLOSE, 'text' => '关闭', 'color' => 'default'],
+        ];
+
+        $form->switch('status', __('Status'))->states($states);
+        $form->text('counter_code', __('Counter code'));
+        $form->text('province', __('Province'));
+        $form->image('img', __('Img'));
+        $form->hidden('store_type',1);
+        return $form;
+    }
+}
