@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>轮播图配置</title>
-    <link rel="stylesheet" href="../assets/libs/element.css">
-    <link rel="stylesheet" href="../assets/swiperConfig.css">
-<!--  <link href="{{ asset('/vendor/admin_banner/css/swiperConfig.css')  }}" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" href="{{ asset('/vendor/admin_banner/css/element.css')  }} ">
+{{--    <link rel="stylesheet" href="../assets/swiperConfig.css">--}}
+ <link href="{{ asset('/vendor/admin_banner/css/swiperConfig.css')  }}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="app-a328">
@@ -53,9 +53,9 @@
                         <vuedraggable v-model="configList">
                             <div class="list-item" v-for="(item,index) in configList" :key="index">
                                 <el-popconfirm
-                                        title="确定删除？"
-                                        @confirm="handleDelete(index)"
-                                        class="delete-icon"
+                                    title="确定删除？"
+                                    @confirm="handleDelete(index)"
+                                    class="delete-icon"
                                 >
                                     <i slot="reference" class="el-icon-delete icon"></i>
                                 </el-popconfirm>
@@ -63,11 +63,11 @@
                                 <div class="title-wrapper">
                                     <div class="left"><span class="required">素材：</span></div>
                                     <el-upload
-                                            action="https://jsonplaceholder.typicode.com/posts/"
-                                            list-type="picture-card"
-                                            :limit="1"
-                                            :on-success="(args)=>handleUpLoadSuccess(index,...args)"
-                                            :show-file-list="false"
+                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        list-type="picture-card"
+                                        :limit="1"
+                                        :on-success="(args)=>handleUpLoadSuccess(index,...args)"
+                                        :show-file-list="false"
                                     >
                                         <img v-if="item.url" :src="item.url" class="avatar">
                                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -81,10 +81,10 @@
                                     <div class="left"><span class="required">交互类型：</span></div>
                                     <el-select v-model="item.type" placeholder="请选择" size="mini" style="flex:1;">
                                         <el-option
-                                                v-for="item in options"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
                                         </el-option>
                                     </el-select>
                                 </div>
@@ -113,11 +113,11 @@
         </div>
     </div>
 
- <script src="{{asset('/vendor/admin_banner/js/vue.js')}}"></script>
- <script src="{{asset('/vendor/admin_banner/js/element.js')}}"></script>
-  <script src="{{asset('/vendor/admin_banner/js/Sortable.min.js')}}"></script>
+    <script src="{{asset('/vendor/admin_banner/js/vue.js')}}"></script>
+    <script src="{{asset('/vendor/admin_banner/js/element.js')}}"></script>
+    <script src="{{asset('/vendor/admin_banner/js/Sortable.min.js')}}"></script>
     <script src="{{asset('/vendor/admin_banner/js/vuedraggable.umd.min.js')}}"></script>
-  <script src="{{asset('/vendor/admin_banner/js/axios.min.js')}}"></script>
+    <script src="{{asset('/vendor/admin_banner/js/axios.min.js')}}"></script>
 
 
     <script>

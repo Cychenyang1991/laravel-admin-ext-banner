@@ -1,0 +1,129 @@
+
+// #app{
+//   padding: 20px;
+// }
+// .el-radio__label{
+//   font-weight: normal;
+// }
+#app-a328{
+  display: flex;
+  .wrapper{
+    border: 1px solid #ccc;
+    &:first-child{
+      margin-right: 20px;
+      margin-left: 100px;
+    }
+  }
+  .title{
+    padding: 8px 20px;
+    background-color: #409efe;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .content{
+    padding: 20px;
+    box-sizing: border-box;
+    // width: 100%;
+    max-height: 660px;
+    &.scroll{
+      overflow-y: scroll;
+    }
+    .phone-modal{
+      border: 1px solid #ccc;
+      // background-color: red;
+      // 手机模型宽高
+      min-width: 337.5px;
+      min-height: 600.3px;
+      position: relative;
+      .status-bar{
+        width: 100%;
+        height: 30px;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9;
+        .status-bar-img{
+          width: 100%;
+          height: 100%;
+        }
+        .time{
+          position: absolute;
+          top: 0;
+          left: 50%;
+          font-size: 13px;
+          top: 9px;
+          transform: translateX(-50%);
+          // font-weight: bold;
+        }
+      }
+      .mini-icon{
+        width: 86px;
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 24px;
+        z-index: 9;
+      }
+      .swiper{
+        .img{
+          width: 100%;
+          height: 562px;
+        }
+      }
+    }
+    .config{
+      min-width: 360px;
+      font-size: 13px;
+      .title-wrapper{
+        display:flex;
+        margin-bottom: 16px;
+        .left{
+          flex-shrink: 0;
+          text-align: right;
+          min-width: 65px;
+          span{
+            position: relative;
+            &.required{
+              &::after{
+                content: '*';
+                color: red;
+                position: absolute;
+                left: -10px;
+                top: 1px;
+              }
+            }
+          }
+        }
+      }
+      .config-list{
+        margin-bottom: 10px;
+        .title-wrapper{
+          align-items: center;
+          &:last-child{
+            margin-bottom: 0;
+          }
+        }
+        .list-item{
+          border: 1px solid #ccc;
+          padding: 14px;
+          box-sizing: border-box;
+          margin-bottom: 10px;
+          position: relative;
+          &:last-child{
+            margin-bottom: 0;
+          }
+          .delete-icon{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+          }
+        }
+      }
+      .btn-group{
+        text-align: center;
+      }
+    }
+  }
+}
