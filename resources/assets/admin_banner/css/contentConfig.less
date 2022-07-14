@@ -1,0 +1,119 @@
+body{
+  margin: 0;
+}
+#app-a329{
+
+  // background-color: red;
+  overflow: hidden;
+  padding:0 40px;
+  .flex{
+    display: flex;
+  }
+  .el-form-item__label{
+    padding: 0;
+  }
+  .tips{
+    vertical-align: -8px;
+    font-size: 12px;
+    color: #ccc;
+  }
+  .no-height{
+    .el-upload{
+      line-height: 1;
+    }
+  }
+  .el-upload{
+    width: 80px;
+    height: 80px;
+    line-height: 90px;
+
+  }
+  .item-image{
+    width: 80px;
+    height: 80px;
+  }
+  .article-type{
+    .title{
+      font-size: 14px;
+      position: relative;
+      &::after{
+        content: '*';
+        color: #F56C6C;
+        position: absolute;
+        left: -8px;
+        top: 2px;
+      }
+    }
+    .type-url{
+      font-size: 14px;
+      margin-top: 20px;
+      align-items: center;
+      .title{
+        width: 70px;
+        position: relative;
+        *::after{
+          content: '*';
+            color: #F56C6C;
+            position: absolute;
+            left: -10px;
+            top: 2px;
+        }
+      }
+    }
+  }
+
+
+  .content{
+    margin-top: 20px;
+    .left{
+      .left-content{
+        overflow-x:scroll ;
+        width: 300px;
+        height: 500px;
+        border: 1px solid #ccc;
+        .left-item{
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+    .divider{
+      height: 500px;
+      width: 3px;
+      background-color: #ccc;
+      margin: 0 40px;
+    }
+    .right{
+      flex: 1;
+      .right-item{
+        border: 1px dotted red;
+        border-radius: 6px;
+        padding: 30px;
+        margin-bottom: 10px;
+        position: relative;
+
+        .delete-icon{
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          .icon{
+            color: #1990ff;
+          }
+        }
+        .item-title{
+          width: 80px;
+          font-size: 14px;
+          position: relative;
+          &::after{
+            content: '*';
+            color: #F56C6C;
+            position: absolute;
+            left: -10px;
+            top: 2px;
+          }
+        }
+      }
+    }
+
+  }
+}

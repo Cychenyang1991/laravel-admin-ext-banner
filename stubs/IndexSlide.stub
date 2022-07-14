@@ -4,6 +4,7 @@ namespace App\Models\Common;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -21,11 +22,17 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image_cover 封面图片
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $is_delete
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide newQuery()
+ * @method static \Illuminate\Database\Query\Builder|IndexSlide onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide query()
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereImageCover($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereSlideType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereSlideTypeContent($value)
@@ -34,13 +41,15 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IndexSlide whereUrlType($value)
+ * @method static \Illuminate\Database\Query\Builder|IndexSlide withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|IndexSlide withoutTrashed()
  * @mixin \Eloquent
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
  */
-class IndexSlide extends Model implements Transformable
+class  IndexSlide extends Model implements Transformable
 {
-    use TransformableTrait;
+    use TransformableTrait,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +57,7 @@ class IndexSlide extends Model implements Transformable
      * @var array
      */
     protected $fillable = [];
+    protected $guarded = [];
 
     //交互类型none无，official公众号，outside_mini外部小程序，inside_mini内部小程序
     const SLIDE_TYPE_NONE         = 'none';
@@ -63,12 +73,19 @@ class IndexSlide extends Model implements Transformable
     const URL_TYPE_IMG = 1;
     const URL_TYPE_VIDEO = 2;
 
+    public $appends = ['is_delete'];
 
     protected $casts = [
             'slide_type_content' => 'json',
             'created_at' => 'datetime:Y-m-d',
             'updated_at' => 'datetime:Y-m-d',
         ];
+
+
+    public function getIsDeleteAttribute($value)
+    {
+        return 0;
+    }
 
     public function getUrlAttribute($value)
     {
@@ -80,6 +97,19 @@ class IndexSlide extends Model implements Transformable
     {
         $this->attributes['url'] = str_replace(config('filesystems.disks.s3.url'),'',$value);
     }
+
+
+    public function getImageCoverAttribute($value)
+    {
+        return Storage::disk('s3')->url($value);
+    }
+
+
+    public function setImageCoverAttribute($value)
+    {
+        $this->attributes['image_cover'] = str_replace(config('filesystems.disks.s3.url'),'',$value);
+    }
+
 
 
     /**

@@ -2,13 +2,21 @@
 
 namespace App\Admin\Controllers;
 
+use App\Entity\ApiJsonResponse;
+use App\Exceptions\ValueInvalidException;
 use App\Models\Activity\ActivityRule;
+use App\Models\Common\IndexSlide;
 use App\Models\Common\Store;
+use Arr;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BannerController extends AdminController
 {
@@ -26,10 +34,91 @@ class BannerController extends AdminController
      */
     public function index(Content $content)
     {
+        $indexSlide = IndexSlide::all()->toJson();
         return $content
             ->title($this->title())
             ->description($this->description['index'] ?? trans('admin.list'))
-            ->view('admin.banner_index');
+            ->view('admin.banner_index', ['indexSlide' => $indexSlide]);
+    }
+
+    public function postImg(Request $request)
+    {
+
+        $img = $request->file('img');
+
+        $fileName = uniqid('', false);
+        $filePath = 'AdminBanner/' . Carbon::now()->year . '/' . Carbon::now()->month;
+
+        $fileName       .= '.' . $img->extension();
+        $url            = \Storage::disk('s3')->putFileAs($filePath, $img, $fileName);
+        $url            = \Storage::disk('s3')->url($url);
+        $data['imgUrl'] = $url;
+        return [
+            'code' => 200,
+            'data' => $data
+        ];
+
+    }
+
+    public function postSave(Request $request, ApiJsonResponse $apiJsonResponse)
+    {
+        $data = $request->all();
+        $this->checkData($data);
+
+        try {
+            DB::beginTransaction();
+
+            foreach ($data['data'] as $key => $value) {
+
+                $indexSlide = IndexSlide::whereId(Arr::get($value, 'id'))->first();
+                if (!$indexSlide) {
+                    $indexSlide = new IndexSlide();
+                    if(Arr::get($value, 'is_delete',0) == 1){
+                        continue;
+                    }
+                }else{
+                    if(Arr::get($value, 'is_delete',0) == 1){
+                        $indexSlide->delete();
+                        continue;
+                    }
+                }
+
+                $indexSlide->image_cover        = Arr::get($value, 'image_cover');
+                $indexSlide->slide_type         = Arr::get($value, 'slide_type');
+                $indexSlide->slide_type_content = Arr::get($value, 'slide_type_content');
+                $indexSlide->url                = Arr::get($value, 'url');
+                $indexSlide->url_type           = Arr::get($value, 'url_type');
+                $indexSlide->status             = Arr::get($value, 'status');
+                $indexSlide->sort               = $key;;
+                $indexSlide->save();
+
+            }
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            \Log::error($exception);
+            throw new ValueInvalidException('创建失败');
+        }
+        $apiJsonResponse->message = '操作成功';
+        return response()->json($apiJsonResponse->makeResponse());
+
+    }
+
+    public function checkData($postData)
+    {
+        $validator = Validator::make($postData, [
+            //'data.*.id'         => 'required',
+            'data.*.slide_type' => 'required',
+            'data.*.url_type'   => 'required',
+            'data.*.status'     => 'required',
+            'data.*.url'        => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            throw new ValueInvalidException('必填参数不能为空');
+
+        }
     }
 
 
@@ -84,7 +173,7 @@ class BannerController extends AdminController
         $form->text('counter_code', __('Counter code'));
         $form->text('province', __('Province'));
         $form->image('img', __('Img'));
-        $form->hidden('store_type',1);
+        $form->hidden('store_type', 1);
         return $form;
     }
 }

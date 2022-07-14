@@ -22,7 +22,9 @@ class CreateSlidesTable extends Migration
             $table->json('slide_type_content')->comment('交互内容');
             $table->unsignedTinyInteger('status')->comment('状态 1开启 2关闭');
             $table->unsignedTinyInteger('sort')->comment('排序');
+            $table->string('image_cover')->nullable()->comment('封面图片');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

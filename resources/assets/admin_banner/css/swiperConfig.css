@@ -1,5 +1,11 @@
+body {
+  margin: 0;
+}
 #app-a328 {
   display: flex;
+}
+input[type=file]{
+    display: none !important;
 }
 #app-a328 .wrapper {
   border: 1px solid #ccc;
@@ -25,7 +31,7 @@
 }
 #app-a328 .content .phone-modal {
   border: 1px solid #ccc;
-  min-width: 337.5px;
+  min-width: 375px;
   min-height: 600.3px;
   position: relative;
 }
@@ -50,6 +56,18 @@
   top: 9px;
   transform: translateX(-50%);
 }
+#app-a328 .content .phone-modal .carousel-item {
+  position: relative;
+}
+#app-a328 .content .phone-modal .carousel-item .name {
+  position: absolute;
+  bottom: 100px;
+  left: 50% ;
+  transform: translateX(-50%);
+  font-size: 22px;
+  color: #fff;
+  font-weight: 300;
+}
 #app-a328 .content .phone-modal .mini-icon {
   width: 86px;
   display: inline-block;
@@ -60,7 +78,7 @@
 }
 #app-a328 .content .phone-modal .swiper .img {
   width: 100%;
-  height: 562px;
+  height: 520px;
 }
 #app-a328 .content .config {
   min-width: 360px;
@@ -85,6 +103,9 @@
   left: -10px;
   top: 1px;
 }
+#app-a328 .content .config .title-wrapper .right {
+  margin-left: auto;
+}
 #app-a328 .content .config .config-list {
   margin-bottom: 10px;
 }
@@ -93,6 +114,19 @@
 }
 #app-a328 .content .config .config-list .title-wrapper:last-child {
   margin-bottom: 0;
+}
+#app-a328 .content .config .config-list .upload-wrapper {
+  padding-left: 65px;
+  margin-bottom: 16px;
+}
+#app-a328 .content .config .config-list .el-upload {
+  width: 60px;
+  height: 60px;
+  line-height: 70px;
+}
+#app-a328 .content .config .config-list .item-image {
+  width: 60px;
+  height: 60px;
 }
 #app-a328 .content .config .config-list .list-item {
   border: 1px solid #ccc;
@@ -108,6 +142,11 @@
   position: absolute;
   right: 10px;
   top: 10px;
+}
+#app-a328 .content .config .config-list .list-item .switch {
+  position: absolute;
+  top: 10px;
+  right: 50px;
 }
 #app-a328 .content .config .btn-group {
   text-align: center;

@@ -14,3 +14,18 @@ php artisan vendor:publish --provider="Encore\Banner\BannerServiceProvider"
 
 需要在 laravel-admin后台的 Admin目录中的 路由文件中 增加 $router->resource('banners', BannerController::class);
 
+需在csrf中过滤请求
+class VerifyCsrfToken extends Middleware
+{
+/**
+* The URIs that should be excluded from CSRF verification.
+* 
+  * @var array
+  */
+  protected $except = [
+  //
+  'admin/banners/upload',
+  'admin/banners/save',
+  ];
+}
+
