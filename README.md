@@ -12,7 +12,16 @@ php artisan vendor:publish --provider="Encore\Banner\BannerServiceProvider"
 
 在 Models/Common/IndexSlide.php 生成 model文件
 
-需要在 laravel-admin后台的 Admin目录中的 路由文件中 增加 $router->resource('banners', BannerController::class);
+需要在 laravel-admin后台的 Admin目录中的 路由文件中 增加 
+
+$router->post('banners/upload', 'BannerController@postImg');
+$router->post('banners/save', 'BannerController@postSave');
+laravel > 7 路由写法
+$router->resource('banners', BannerController::class);
+
+laravel < 7 路由写法
+$router->resource('banners', 'BannerController');
+
 
 需在csrf中过滤请求
 class VerifyCsrfToken extends Middleware
@@ -23,7 +32,7 @@ class VerifyCsrfToken extends Middleware
   * @var array
   */
   protected $except = [
-  //
+  
   'admin/banners/upload',
   'admin/banners/save',
   ];

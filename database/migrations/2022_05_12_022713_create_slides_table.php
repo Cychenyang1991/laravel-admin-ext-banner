@@ -14,7 +14,8 @@ class CreateSlidesTable extends Migration
     public function up()
     {
         Schema::create('index_slides', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+			 $table->bigInteger('slide_rule_id')->index();
             $table->string('url')->comment('素材地址');
             $table->unsignedTinyInteger('url_type')->comment('素材类型');
             $table->string('name',60)->nullable()->comment('名称');
