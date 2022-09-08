@@ -3,12 +3,12 @@
 namespace App\Admin\Controllers;
 
 use App\Entity\ApiJsonResponse;
-use App\Exceptions\ValueInvalidException;
-use App\Models\Activity\ActivityRule;
+
+
 use App\Models\Common\IndexSlide;
 use App\Models\Common\SlideRule;
 use App\Models\Common\Store;
-use Arr;
+
 use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Facades\Admin;
@@ -17,8 +17,10 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 
 class BannerController extends AdminController
 {
@@ -64,9 +66,9 @@ class BannerController extends AdminController
         $filePath = 'AdminBanner/' . Carbon::now()->year . '/' . Carbon::now()->month;
 
         $fileName       .= '.' . $img->extension();
-        $url            = \Storage::disk('s3')->putFileAs($filePath, $img, $fileName);
-        $url            = \Storage::disk('s3')->url($url);
-        $data['imgUrl'] = $url;
+        $url            = \Storage::disk('admin')->putFileAs($filePath, $img, $fileName);
+
+        $data['imgUrl'] =\Storage::disk('admin')->url($url);
         return [
             'code' => 200,
             'data' => $data
@@ -121,7 +123,7 @@ class BannerController extends AdminController
         } catch (\Exception $exception) {
             DB::rollBack();
             \Log::error($exception);
-            throw new ValueInvalidException('创建失败');
+            throw new Exception('创建失败');
         }
         $apiJsonResponse->message = '操作成功';
         return response()->json($apiJsonResponse->makeResponse());
@@ -141,7 +143,7 @@ class BannerController extends AdminController
         ]);
 
         if ($validator->fails()) {
-            throw new ValueInvalidException('必填参数不能为空');
+            throw new \Exception('必填参数不能为空');
 
         }
     }

@@ -13,6 +13,15 @@ php artisan vendor:publish --provider="Encore\Banner\BannerServiceProvider"
 在 Models/Common/IndexSlide.php 生成 model文件
 在 Models/Common/SlideRule.php 生成 model文件
 
+在 config/filesystems.php文件中增加admin 驱动
+
+'admin' => [
+'driver'     => 'local',
+'root'       => public_path(''),
+'url'        => env('APP_URL') ,
+'visibility' => 'public',
+],
+
 需要在 laravel-admin后台的 Admin目录中的 路由文件中 增加 
 
 $router->post('banners/upload', 'BannerController@postImg');
