@@ -11,6 +11,7 @@ php artisan vendor:publish --provider="Encore\Banner\BannerServiceProvider"
 会在admin后台的 admin目录下生成 BannerController.php 控制器
 
 在 Models/Common/IndexSlide.php 生成 model文件
+在 Models/Common/SlideRule.php 生成 model文件
 
 需要在 laravel-admin后台的 Admin目录中的 路由文件中 增加 
 
@@ -33,8 +34,8 @@ class VerifyCsrfToken extends Middleware
   */
   protected $except = [
   
-  'admin/banners/upload',
-  'admin/banners/save',
+  'admin/banners/*'
+  
   ];
 }
 
