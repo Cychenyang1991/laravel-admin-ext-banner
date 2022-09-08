@@ -257,7 +257,7 @@
                 axios
                     .post('./banners/save', {'data': configList,'carouselType': carouselType, 'interval': interval})
                     .then(function (response) {
-                        alert(response.data.message)
+                        alert('操作成功')
                     })
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
