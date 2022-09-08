@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models\Common;
+
+use Dcat\Admin\Traits\HasDateTimeFormatter;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * App\Models\Common\SlideRule
+ *
+ * @property int $id
+ * @property string $code 组件类型
+ * @property int $type 组件运行方式 1手动 2自动
+ * @property int|null $time 自动运行的时间间隔
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SlideRule whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @noinspection PhpFullyQualifiedNameUsageInspection
+ * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ */
+class SlideRule extends Model
+{
+    protected $table = 'slide_rules';
+    protected $guarded = [];
+
+}

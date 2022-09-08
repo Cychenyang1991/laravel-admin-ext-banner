@@ -39,6 +39,9 @@ class BannerServiceProvider extends ServiceProvider
 
             $this->publishes([__DIR__ . '/../stubs/IndexSlide.stub'
                               => app_path('Models/Common/IndexSlide.php')], 'banner_con');
+
+            $this->publishes([__DIR__ . '/../stubs/SlideRule.stub'
+                              => app_path('Models/Common/SlideRule.php')], 'banner_con');
         }
 
 
